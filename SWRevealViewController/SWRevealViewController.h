@@ -183,23 +183,23 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 /* Basic API */
 
 // Object instance init and rear view setting
-- (id)initWithRearViewController:(UIViewController *)rearViewController frontViewController:(UIViewController *)frontViewController;
+- (nonnull id)initWithRearViewController:(nonnull UIViewController *)rearViewController frontViewController:(nonnull UIViewController *)frontViewController;
 
 // Rear view controller, can be nil if not used
-@property (nonatomic) UIViewController *rearViewController;
-- (void)setRearViewController:(UIViewController *)rearViewController animated:(BOOL)animated;
+@property (nonatomic, nullable) UIViewController *rearViewController;
+- (void)setRearViewController:(nonnull UIViewController *)rearViewController animated:(BOOL)animated;
 
 // Optional right view controller, can be nil if not used
-@property (nonatomic) UIViewController *rightViewController;
-- (void)setRightViewController:(UIViewController *)rightViewController animated:(BOOL)animated;
+@property (nonatomic, nullable) UIViewController *rightViewController;
+- (void)setRightViewController:(nullable UIViewController *)rightViewController animated:(BOOL)animated;
 
 // Front view controller, can be nil on initialization but must be supplied by the time the view is loaded
-@property (nonatomic) UIViewController *frontViewController;
-- (void)setFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
+@property (nonatomic, nullable) UIViewController *frontViewController;
+- (void)setFrontViewController:(nonnull UIViewController *)frontViewController animated:(BOOL)animated;
 
 // Sets the frontViewController using a default set of chained animations consisting on moving the
 // presented frontViewController to the right most possition, replacing it, and moving it back to the left position
-- (void)pushFrontViewController:(UIViewController *)frontViewController animated:(BOOL)animated;
+- (void)pushFrontViewController:(nonnull sUIViewController *)frontViewController animated:(BOOL)animated;
 
 // Sets the frontViewController position. You can call the animated version several times with different
 // positions to obtain a set of animations that will be performed in order one after the other.
