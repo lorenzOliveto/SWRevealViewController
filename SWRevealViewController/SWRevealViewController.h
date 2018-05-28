@@ -183,7 +183,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 /* Basic API */
 
 // Object instance init and rear view setting
-- (nonnull id)initWithRearViewController:(nonnull UIViewController *)rearViewController frontViewController:(nonnull UIViewController *)frontViewController;
+- (nonnull id)initWithRearViewController:(nullable UIViewController *)rearViewController frontViewController:(nullable UIViewController *)frontViewController;
 
 // Rear view controller, can be nil if not used
 @property (nonatomic, nullable) UIViewController *rearViewController;
