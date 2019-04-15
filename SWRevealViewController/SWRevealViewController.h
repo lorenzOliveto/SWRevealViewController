@@ -396,9 +396,9 @@ typedef enum
 /* StoryBoard support */
 
 // String identifiers to be applied to segues on a storyboard
-extern nonnull NSString* const SWSegueRearIdentifier;  // this is @"sw_rear"
-extern nonnull NSString* const SWSegueFrontIdentifier; // this is @"sw_front"
-extern nonnull NSString* const SWSegueRightIdentifier; // this is @"sw_right"
+extern NSString* __nonnull const SWSegueRearIdentifier;  // this is @"sw_rear"
+extern NSString* __nonnull const SWSegueFrontIdentifier; // this is @"sw_front"
+extern NSString* __nonnull const SWSegueRightIdentifier; // this is @"sw_right"
 
 /* This will allow the class to be defined on a storyboard */
 
