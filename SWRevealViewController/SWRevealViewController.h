@@ -209,8 +209,8 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // The following methods are meant to be directly connected to the action method of a button
 // to perform user triggered postion change of the controller views. This is ussually added to a
 // button on top left or right of the frontViewController
-- (IBAction)revealToggle:(id)sender;
-- (IBAction)rightRevealToggle:(id)sender; // <-- simetric implementation of the above for the rightViewController
+- (IBAction)revealToggle:(nullable id)sender;
+- (IBAction)rightRevealToggle:(nullable id)sender; // <-- simetric implementation of the above for the rightViewController
 
 // Toogles the current state of the front controller between Left or Right and fully visible
 // Use setFrontViewPosition to set a particular position
@@ -223,13 +223,13 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 // By default, the panGestureRecognizer is added to the view containing the front controller view. To keep this default behavior
 // you still need to call this method, just don't add it to any of your views. The default setup allows you to dissable
 // user interactions on your controller views without affecting the recognizer.
-- (UIPanGestureRecognizer*)panGestureRecognizer;
+- (nonnull UIPanGestureRecognizer*)panGestureRecognizer;
 
 // The following method will provide a tapGestureRecognizer suitable to be added to any view on the frontController
 // for concealing the rear views. By default no tap recognizer is created or added to any view, however if you call this method after
 // the controller's view has been loaded the recognizer is added to the reveal controller's front container view.
 // Thus, you can disable user interactions on your frontViewController view without affecting the tap recognizer.
-- (UITapGestureRecognizer*)tapGestureRecognizer;
+- (nonnull UITapGestureRecognizer*)tapGestureRecognizer;
 
 /* The following properties are provided for further customization, they are set to default values on initialization,
    you do not generally have to set them */
@@ -291,7 +291,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
 @property (nonatomic) CGFloat frontViewShadowOpacity;
 
 // Defines the front view's shadow color, default is blackColor
-@property (nonatomic) UIColor *frontViewShadowColor;
+@property (nonatomic, nonnull) UIColor *frontViewShadowColor;
 
 // Defines whether the controller should clip subviews to its view bounds. Default is NO.
 // Set this to YES when you are presenting this controller as a non full-screen child of a
@@ -307,7 +307,7 @@ typedef NS_ENUM(NSInteger, SWRevealToggleAnimationType)
    Moreover you can assign a delegate to let the class inform you on positions and animation activity */
 
 // Delegate
-@property (nonatomic,weak) id<SWRevealViewControllerDelegate> delegate;
+@property (nonatomic, weak, nullable) id<SWRevealViewControllerDelegate> delegate;
 
 @end
 
@@ -329,29 +329,29 @@ typedef enum
 @optional
 
 // The following delegate methods will be called before and after the front view moves to a position
-- (void)revealController:(SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position;
-- (void)revealController:(SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position;
+- (void)revealController:(nonnull SWRevealViewController *)revealController willMoveToPosition:(FrontViewPosition)position;
+- (void)revealController:(nonnull SWRevealViewController *)revealController didMoveToPosition:(FrontViewPosition)position;
 
 // This will be called inside the reveal animation, thus you can use it to place your own code that will be animated in sync
-- (void)revealController:(SWRevealViewController *)revealController animateToPosition:(FrontViewPosition)position;
+- (void)revealController:(nonnull SWRevealViewController *)revealController animateToPosition:(FrontViewPosition)position;
 
 // Implement this to return NO when you want the pan gesture recognizer to be ignored
-- (BOOL)revealControllerPanGestureShouldBegin:(SWRevealViewController *)revealController;
+- (BOOL)revealControllerPanGestureShouldBegin:(nonnull SWRevealViewController *)revealController;
 
 // Implement this to return NO when you want the tap gesture recognizer to be ignored
-- (BOOL)revealControllerTapGestureShouldBegin:(SWRevealViewController *)revealController;
+- (BOOL)revealControllerTapGestureShouldBegin:(nonnull SWRevealViewController *)revealController;
 
 // Implement this to return YES if you want other gesture recognizer to share touch events with the pan gesture
-- (BOOL)revealController:(SWRevealViewController *)revealController
-    panGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+- (BOOL)revealController:(nonnull SWRevealViewController *)revealController
+    panGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(nonnull UIGestureRecognizer *)otherGestureRecognizer;
 
 // Implement this to return YES if you want other gesture recognizer to share touch events with the tap gesture
-- (BOOL)revealController:(SWRevealViewController *)revealController
-    tapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer;
+- (BOOL)revealController:(nonnull SWRevealViewController *)revealController
+    tapGestureRecognizerShouldRecognizeSimultaneouslyWithGestureRecognizer:(nonnull UIGestureRecognizer *)otherGestureRecognizer;
 
 // Called when the gestureRecognizer began and ended
-- (void)revealControllerPanGestureBegan:(SWRevealViewController *)revealController;
-- (void)revealControllerPanGestureEnded:(SWRevealViewController *)revealController;
+- (void)revealControllerPanGestureBegan:(nonnull SWRevealViewController *)revealController;
+- (void)revealControllerPanGestureEnded:(nonnull SWRevealViewController *)revealController;
 
 // The following methods provide a means to track the evolution of the gesture recognizer.
 // The 'location' parameter is the X origin coordinate of the front view as the user drags it
@@ -359,25 +359,25 @@ typedef enum
 //   rearRevealWidth or rightRevealWidth. 1 is fully revealed, dragging ocurring in the overDraw region will result in values above 1.
 // The 'overProgress' parameter is a number ranging from 0 to 1 indicating the front view location relative to the
 //   overdraw region. 0 is fully revealed, 1 is fully overdrawn. Negative values occur inside the normal reveal region
-- (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress overProgress:(CGFloat)overProgress;
-- (void)revealController:(SWRevealViewController *)revealController panGestureMovedToLocation:(CGFloat)location progress:(CGFloat)progress overProgress:(CGFloat)overProgress;
-- (void)revealController:(SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress overProgress:(CGFloat)overProgress;
+- (void)revealController:(nonnull SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress overProgress:(CGFloat)overProgress;
+- (void)revealController:(nonnull SWRevealViewController *)revealController panGestureMovedToLocation:(CGFloat)location progress:(CGFloat)progress overProgress:(CGFloat)overProgress;
+- (void)revealController:(nonnull SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress overProgress:(CGFloat)overProgress;
 
 // Notification of child controller replacement
-- (void)revealController:(SWRevealViewController *)revealController willAddViewController:(UIViewController *)viewController
+- (void)revealController:(nonnull SWRevealViewController *)revealController willAddViewController:(UIViewController *)viewController
     forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
-- (void)revealController:(SWRevealViewController *)revealController didAddViewController:(UIViewController *)viewController
+- (void)revealController:(nonnull SWRevealViewController *)revealController didAddViewController:(nonnull UIViewController *)viewController
     forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
 
 // Support for custom transition animations while replacing child controllers. If implemented, it will be fired in response
 // to calls to 'setXXViewController' methods
-- (id<UIViewControllerAnimatedTransitioning>)revealController:(SWRevealViewController *)revealController
-    animationControllerForOperation:(SWRevealControllerOperation)operation fromViewController:(UIViewController *)fromVC toViewController:(UIViewController *)toVC;
+- (id<UIViewControllerAnimatedTransitioning>)revealController:(nonnull SWRevealViewController *)revealController
+    animationControllerForOperation:(SWRevealControllerOperation)operation fromViewController:(nonnull UIViewController *)fromVC toViewController:(nonnull UIViewController *)toVC;
 
 // DEPRECATED - The following delegate methods will be removed some time in the future
-- (void)revealController:(SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
-- (void)revealController:(SWRevealViewController *)revealController panGestureMovedToLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
-- (void)revealController:(SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
+- (void)revealController:(nonnull SWRevealViewController *)revealController panGestureBeganFromLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
+- (void)revealController:(nonnull SWRevealViewController *)revealController panGestureMovedToLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
+- (void)revealController:(nonnull SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress; // (DEPRECATED)
 @end
 
 
@@ -386,7 +386,7 @@ typedef enum
 // A category of UIViewController to let childViewControllers easily access their parent SWRevealViewController
 @interface UIViewController(SWRevealViewController)
 
-- (SWRevealViewController*)revealViewController;
+- (nullable SWRevealViewController*)revealViewController;
 
 @end
 
