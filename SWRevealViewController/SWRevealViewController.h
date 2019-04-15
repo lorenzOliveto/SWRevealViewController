@@ -364,14 +364,14 @@ typedef enum
 - (void)revealController:(nonnull SWRevealViewController *)revealController panGestureEndedToLocation:(CGFloat)location progress:(CGFloat)progress overProgress:(CGFloat)overProgress;
 
 // Notification of child controller replacement
-- (void)revealController:(nonnull SWRevealViewController *)revealController willAddViewController:(UIViewController *)viewController
+- (void)revealController:(nonnull SWRevealViewController *)revealController willAddViewController:(nonnull UIViewController *)viewController
     forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
 - (void)revealController:(nonnull SWRevealViewController *)revealController didAddViewController:(nonnull UIViewController *)viewController
     forOperation:(SWRevealControllerOperation)operation animated:(BOOL)animated;
 
 // Support for custom transition animations while replacing child controllers. If implemented, it will be fired in response
 // to calls to 'setXXViewController' methods
-- (id<UIViewControllerAnimatedTransitioning>)revealController:(nonnull SWRevealViewController *)revealController
+- (nonnull id<UIViewControllerAnimatedTransitioning>)revealController:(nonnull SWRevealViewController *)revealController
     animationControllerForOperation:(SWRevealControllerOperation)operation fromViewController:(nonnull UIViewController *)fromVC toViewController:(nonnull UIViewController *)toVC;
 
 // DEPRECATED - The following delegate methods will be removed some time in the future
@@ -396,9 +396,9 @@ typedef enum
 /* StoryBoard support */
 
 // String identifiers to be applied to segues on a storyboard
-extern NSString* const SWSegueRearIdentifier;  // this is @"sw_rear"
-extern NSString* const SWSegueFrontIdentifier; // this is @"sw_front"
-extern NSString* const SWSegueRightIdentifier; // this is @"sw_right"
+extern nonnull NSString* const SWSegueRearIdentifier;  // this is @"sw_rear"
+extern nonnull NSString* const SWSegueFrontIdentifier; // this is @"sw_front"
+extern nonnull NSString* const SWSegueRightIdentifier; // this is @"sw_right"
 
 /* This will allow the class to be defined on a storyboard */
 
